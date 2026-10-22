@@ -1,9 +1,11 @@
 import gradio as gr
 from google import genai
 from google.genai import types
-from google.colab import userdata
+import os
 
-client = genai.Client(api_key=userdata.get("GEMINI_API_KEY"))
+client = genai.Client(
+    api_key=os.environ["GEMINI_API_KEY"]
+)
 
 personalities = {
   "Friendly":
@@ -44,4 +46,8 @@ demo = gr.Interface(
     description="Ask a question and get an answer from your AI study assistant with a chosen personality."
 )
 
-demo.launch(debug=True)
+demo.launch(
+    server_name="0.0.0.0",
+    server_port=7860,
+    debug=False
+)
